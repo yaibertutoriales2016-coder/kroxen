@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KROXEN | Streetwear Urbano</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 antialiased selection:bg-zinc-200 selection:text-zinc-900">
+
+    <!-- BARRA DE ANUNCIO SUPERIOR -->
+    <div class="bg-zinc-900 text-zinc-400 text-xs py-2 text-center tracking-widest uppercase border-b border-zinc-800">
+        ⚡ Envíos seguros a nivel nacional • Colección Core disponible
+    </div>
+
+    <!-- NAVEGACIÓN -->
+    <header class="sticky top-0 z-50 bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <a href="#" class="text-2xl font-black tracking-tighter uppercase text-white">
+                    KROXEN<span class="text-zinc-500">.</span>
+                </a>
+                <nav class="hidden md:flex space-x-6 text-sm font-medium tracking-wide">
+                    <a href="#inicio" class="text-white hover:text-zinc-400 transition">INICIO</a>
+                    <a href="#shop" class="text-zinc-400 hover:text-white transition">SHOP</a>
+                    <a href="#colecciones" class="text-zinc-400 hover:text-white transition">COLECCIONES</a>
+                    <a href="#about" class="text-zinc-400 hover:text-white transition">SOBRE NOSOTROS</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleCart()" class="relative bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase transition flex items-center gap-2">
+                    🛒 Carrito <span id="cart-count" class="bg-white text-zinc-950 px-1.5 py-0.5 rounded-full text-[10px] font-bold">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION (INICIO) -->
+    <section id="inicio" class="relative bg-zinc-900 border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <span class="inline-block bg-zinc-800 text-zinc-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest border border-zinc-700">
+                    Nueva Drop 2026
+                </span>
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tighter uppercase leading-none">
+                    Estilo urbano sin ruido.
+                </h1>
+                <p class="text-zinc-400 text-base sm:text-lg max-w-lg">
+                    Siluetas limpias, actitud real. Mezclamos la estética de la calle con detalles minimalistas que definen la identidad de KROXEN.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#shop" class="bg-white text-zinc-950 text-center font-bold px-8 py-4 rounded-full text-sm uppercase tracking-wider hover:bg-zinc-200 transition">
+                        Ver Colección
+                    </a>
+                    <a href="#colecciones" class="border border-zinc-700 text-white text-center font-semibold px-8 py-4 rounded-full text-sm uppercase tracking-wider hover:bg-zinc-800 transition">
+                        Explorar Cápsulas
+                    </a>
+                </div>
+            </div>
+            <div class="relative h-96 sm:h-[450px] bg-zinc-950 rounded-2xl overflow-hidden border border-zinc-800 flex items-center justify-center">
+                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-900/40 to-transparent"></div>
+                <div class="text-center p-8 z-10">
+                    <span class="text-6xl mb-4 block">🧥</span>
+                    <h3 class="text-xl font-bold tracking-wider uppercase">KROXEN CORE ESSENTIALS</h3>
+                    <p class="text-zinc-500 text-xs mt-2 uppercase tracking-widest">Exclusividad & Streetwear</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SHOP (CATÁLOGO DE PRODUCTOS) -->
+    <section id="shop" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
+            <div>
+                <span class="text-zinc-500 text-xs font-bold uppercase tracking-widest">Catálogo Oficial</span>
+                <h2 class="text-3xl font-extrabold tracking-tight uppercase mt-1">Prendas Destacadas</h2>
+            </div>
+            <div class="flex gap-2 mt-4 md:mt-0 overflow-x-auto pb-2">
+                <button onclick="filterProducts('all')" class="category-btn active px-4 py-2 rounded-full text-xs font-semibold bg-white text-zinc-955 transition">Todos</button>
+                <button onclick="filterProducts('hoodie')" class="category-btn px-4 py-2 rounded-full text-xs font-semibold bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white transition">Hoodies</button>
+                <button onclick="filterProducts('tee')" class="category-btn px-4 py-2 rounded-full text-xs font-semibold bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white transition">Playeras</button>
+            </div>
+        </div>
+
+        <!-- GRID DE PRODUCTOS -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Producto 1 -->
+            <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-2xl overflow-hidden hover:border-zinc-700 transition" data-category="hoodie">
+                <div class="h-80 bg-zinc-900 flex items-center justify-center relative overflow-hidden">
+                    <span class="text-5xl group-hover:scale-110 transition duration-300">🖤</span>
+                    <span class="absolute top-4 left-4 bg-zinc-950/80 backdrop-blur-md text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-zinc-800">Core</span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div>
+                        <h3 class="font-bold text-lg tracking-tight uppercase">Hoodie Oversize "KROXEN Core"</h3>
+                        <p class="text-zinc-400 text-sm mt-1">Algodón pesado, corte amplio y acabados de alta durabilidad.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2">
+                        <span class="text-xl font-extrabold">$65.00</span>
+                        <button onclick="addToCart('Hoodie Oversize KROXEN Core', 65)" class="bg-white text-zinc-950 font-bold px-4 py-2.5 rounded-full text-xs uppercase tracking-wider hover:bg-zinc-200 transition">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 2 -->
+            <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-2xl overflow-hidden hover:border-zinc-700 transition" data-category="tee">
+                <div class="h-80 bg-zinc-900 flex items-center justify-center relative overflow-hidden">
+                    <span class="text-5xl group-hover:scale-110 transition duration-300">🤍</span>
+                    <span class="absolute top-4 left-4 bg-zinc-950/80 backdrop-blur-md text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-zinc-800">Essentials</span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div>
+                        <h3 class="font-bold text-lg tracking-tight uppercase">Playera Asfalto Heavyweight</h3>
+                        <p class="text-zinc-400 text-sm mt-1">Silueta relajada, cuello reforzado y gráfico urbano en espalda.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2">
+                        <span class="text-xl font-extrabold">$35.00</span>
+                        <button onclick="addToCart('Playera Asfalto Heavyweight', 35)" class="bg-white text-zinc-950 font-bold px-4 py-2.5 rounded-full text-xs uppercase tracking-wider hover:bg-zinc-200 transition">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 3 -->
+            <div class="product-card group bg-zinc-900/50 border border-zinc-800 rounded-2xl overflow-hidden hover:border-zinc-700 transition" data-category="hoodie">
+                <div class="h-80 bg-zinc-900 flex items-center justify-center relative overflow-hidden">
+                    <span class="text-5xl group-hover:scale-110 transition duration-300">🌿</span>
+                    <span class="absolute top-4 left-4 bg-zinc-950/80 backdrop-blur-md text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-zinc-800">Limited</span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div>
+                        <h3 class="font-bold text-lg tracking-tight uppercase">Hoodie Oliva Minimal</h3>
+                        <p class="text-zinc-400 text-sm mt-1">Tono militar, bordado sutil en pecho y máxima comodidad.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2">
+                        <span class="text-xl font-extrabold">$68.00</span>
+                        <button onclick="addToCart('Hoodie Oliva Minimal', 68)" class="bg-white text-zinc-950 font-bold px-4 py-2.5 rounded-full text-xs uppercase tracking-wider hover:bg-zinc-200 transition">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COLECCIONES -->
+    <section id="colecciones" class="bg-zinc-900/50 border-y border-zinc-800 py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-zinc-500 text-xs font-bold uppercase tracking-widest">Líneas de Diseño</span>
+                <h2 class="text-3xl font-extrabold tracking-tight uppercase mt-1">Cápsulas KROXEN</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl space-y-4">
+                    <span class="text-2xl">⚡</span>
+                    <h3 class="text-xl font-bold uppercase tracking-tight">KROXEN Essentials</h3>
+                    <p class="text-zinc-400 text-sm">Los básicos elevados. Siluetas icónicas en tonos neutros con el sello minimalista de la marca.</p>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl space-y-4">
+                    <span class="text-2xl">🏙️</span>
+                    <h3 class="text-xl font-bold uppercase tracking-tight">Asfalto & Concreto</h3>
+                    <p class="text-zinc-400 text-sm">Inspirada en la energía urbana y nocturna. Gráficos marcados y texturas pesadas.</p>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl space-y-4">
+                    <span class="text-2xl">🔒</span>
+                    <h3 class="text-xl font-bold uppercase tracking-tight">Zero Restock</h3>
+                    <p class="text-zinc-400 text-sm">Gotas exclusivas de pocas unidades. Piezas que una vez se agotan, no vuelven.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE NOSOTROS -->
+    <section id="about" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center space-y-6">
+        <span class="text-zinc-500 text-xs font-bold uppercase tracking-widest">Brand Story</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase">La calle tiene su propio código.</h2>
+        <p class="text-zinc-300 text-base sm:text-lg leading-relaxed">
+            En <strong>KROXEN</strong> no seguimos tendencias pasajeras; creamos piezas que hablan por sí solas. Mezclamos la estética del streetwear urbano con siluetas limpias y actitud real. Cada prenda está pensada para quienes viven la cultura desde adentro, con estilo propio y sin pedir permiso.
+        </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-zinc-950 border-t border-zinc-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <span class="text-lg font-bold tracking-tighter uppercase">KROXEN<span class="text-zinc-500">.</span></span>
+            <p class="text-zinc-500 text-xs uppercase tracking-wider">© 2026 KROXEN. Todos los derechos reservados.</p>
+            <div class="flex space-x-6 text-sm text-zinc-400">
+                <a href="#" class="hover:text-white transition">Instagram</a>
+                <a href="#" class="hover:text-white transition">TikTok</a>
+                <a href="#" class="hover:text-white transition">WhatsApp</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CARRITO MODAL -->
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex justify-end">
+        <div class="w-full max-w-md bg-zinc-950 border-l border-zinc-800 h-full p-6 flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-center pb-6 border-b border-zinc-800">
+                    <h3 class="font-bold text-lg uppercase tracking-tight">Tu Carrito</h3>
+                    <button onclick="toggleCart()" class="text-zinc-400 hover:text-white text-sm font-bold px-2 py-1">✕</button>
+                </div>
+                <div id="cart-items" class="py-6 space-y-4 overflow-y-auto max-h-[60vh]">
+                    <p class="text-zinc-500 text-sm text-center py-8">Tu carrito está vacío.</p>
+                </div>
+            </div>
+            <div class="border-t border-zinc-800 pt-6 space-y-4">
+                <div class="flex justify-between items-center font-bold">
+                    <span>Total:</span>
+                    <span id="cart-total" class="text-xl">$0.00</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-white text-zinc-950 font-bold py-4 rounded-full text-xs uppercase tracking-wider hover:bg-zinc-200 transition">
+                    Proceder al Pago
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE INTERACTIVIDAD -->
+    <script>
+        let cart = [];
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+            toggleCart();
+        }
+
+        function updateCartUI() {
+            const countEl = document.getElementById('cart-count');
+            const itemsEl = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+
+            countEl.textContent = cart.length;
+
+            if (cart.length === 0) {
+                itemsEl.innerHTML = '<p class="text-zinc-500 text-sm text-center py-8">Tu carrito está vacío.</p>';
+                totalEl.textContent = '$0.00';
+                return;
+            }
+
+            let total = 0;
+            let html = '';
+            cart.forEach((item, index) => {
+                total += item.price;
+                html += `
+                    <div class="flex justify-between items-center bg-zinc-900/60 p-4 rounded-xl border border-zinc-800">
+                        <div>
+                            <h4 class="font-bold text-sm uppercase">${item.name}</h4>
+                            <p class="text-zinc-400 text-xs mt-1">$${item.price}.00</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-zinc-500 hover:text-red-400 text-xs font-bold">Eliminar</button>
+                    </div>
+                `;
+            });
+
+            itemsEl.innerHTML = html;
+            totalEl.textContent = `$${total}.00`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Agrega al menos un producto al carrito.');
+                return;
+            }
+            alert('¡Pedido generado con éxito en KROXEN! Redirigiendo a pasarela de pago y coordinación.');
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        function filterProducts(category) {
+            const cards = document.querySelectorAll('.product-card');
+            const buttons = document.querySelectorAll('.category-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-white', 'text-zinc-955');
+                btn.classList.add('bg-zinc-900', 'text-zinc-400', 'border', 'border-zinc-800');
+            });
+            event.target.classList.remove('bg-zinc-900', 'text-zinc-400', 'border', 'border-zinc-800');
+            event.target.classList.add('bg-white', 'text-zinc-955');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
